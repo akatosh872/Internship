@@ -1,11 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
+const specs = require('./config/swaggerConfig'); // Шлях до вашого конфігураційного файлу Swagger
 const { sequelize } = require('./models');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 const port = process.env.PORT || 3000;
 
